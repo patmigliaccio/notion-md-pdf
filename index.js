@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const markdownpdf = require('markdown-pdf'),
   path = require('path'),
   AdmZip = require('adm-zip');
@@ -37,8 +39,8 @@ zipEntries.forEach(zipEntry => {
  */
 function mdStringtoPDF(md, outputPath) {
   markdownpdf({
-    highlightCssPath: './assets/css/darcula.css'
-  })
+      highlightCssPath: './assets/css/darcula.css'
+    })
     .from.string(md)
     .to(outputPath, () => {
       console.log(`Conversion completed: ${outputPath}`);

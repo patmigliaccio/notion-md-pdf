@@ -1,13 +1,23 @@
 {
   "name": "notion-md-pdf",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Converts Markdown files exported from Notion to PDFs",
   "main": "index.js",
   "scripts": {
     "start": "node ./index.js"
   },
+  "bin": {
+    "notion-md-pdf": "./index.js"
+  },
   "author": "Pat Migliaccio <pat@patmigliaccio.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/patmigliaccio/notion-md-pdf.git"
+  },
+  "bugs": {
+    "url": "https://github.com/patmigliaccio/notion-md-pdf/issues"
+  },
   "dependencies": {
     "adm-zip": "^0.4.11",
     "markdown-pdf": "^8.1.1"
