@@ -87,10 +87,10 @@ function prependCSS(html, cssFilePath) {
  */
 async function convertPDF(outputPath) {
   if (process.platform === "win32") {
-    return await execFile(path.normalize('.\\bin\\win\\wkhtmltopdf.exe'), [TEMP_FILE, outputPath]);
+    return await execFile(path.normalize('.\\bin\\win\\wkhtmltopdf.exe'), [path.normalize(TEMP_FILE), outputPath]);
   } else if (process.platform === "darwin") {
     // FIXME: Mac OSX Unsupported
   } else {
-    return await execFile(path.normalize('./bin/linux/wkhtmltopdf'), [TEMP_FILE, outputPath]);
+    return await execFile(path.normalize('./bin/linux/wkhtmltopdf'), [path.normalize(TEMP_FILE), outputPath]);
   }
 }
