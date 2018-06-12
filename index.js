@@ -43,7 +43,9 @@ zipEntries.forEach(zipEntry => {
 async function mdStringtoPDF(md, outputPath) {
   let html = marked(md);
 
-  html = prependCSS(html, './assets/css/github-markdown.css');
+  let cssFilePath = path.join(__dirname, 'assets/css/github-markdown.css');
+
+  html = prependCSS(html, cssFilePath);
 
   fs.writeFileSync(TEMP_FILE, html);
 
@@ -87,14 +89,18 @@ function prependCSS(html, cssFilePath) {
  * @returns {Promise<any>}
  */
 async function htmlFiletoPDF(htmlFilePath, outputPath) {
-  let fp = path.normalize(htmlFilePath);
+  let osExecPath = '';
 
   if (process.platform === "win32") {
-    return await execFile(path.normalize('.\\bin\\win\\wkhtmltopdf.exe'), [fp, outputPath]);
+    osExecPath = 'bin\\win\\wkhtmltopdf.exe'
   } else if (process.platform === "darwin") {
     // FIXME: Mac OSX Unsupported
     throw new Error('Mac OSX is currently unsupported.')
+    return;
   } else {
-    return await execFile(path.normalize('./bin/linux/wkhtmltopdf'), [fp, outputPath]);
+    osExecPath = 'bin/linux/wkhtmltopdf';
   }
+
+  let execPath = path.normalize(path.join(__dirname, osExecPath));
+  return await execFile(execPath, [path.normalize(htmlFilePath), outputPath]);
 }
