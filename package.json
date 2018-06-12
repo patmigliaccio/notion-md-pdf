@@ -1,6 +1,6 @@
 {
   "name": "notion-md-pdf",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Converts Markdown files exported from Notion to PDFs",
   "main": "index.js",
   "scripts": {

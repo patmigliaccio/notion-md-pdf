@@ -13,7 +13,7 @@ yarn global add notion-md-pdf
 NPM
 
 ```bash
-npm install -g notion-md-pdf
+npm install notion-md-pdf -g
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ notion-md-pdf ~/Export-XXXXXX.zip
 
 ## Supported Operating Systems
 
-Linux 64-bit and Windows 64-bit OS are supported.
+Linux (64-bit) and Windows (64-bit) OS are supported.
 
 Mac OS X is currently unsupported due to implementation of `wkhtmltopdf`. Support to come in a later release.
 
