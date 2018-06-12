@@ -1,6 +1,6 @@
 {
   "name": "notion-md-pdf",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Converts Markdown files exported from Notion to PDFs",
   "main": "index.js",
   "scripts": {
@@ -20,9 +20,11 @@
   },
   "dependencies": {
     "adm-zip": "^0.4.11",
-    "markdown-pdf": "^8.1.1"
+    "marked": "^0.4.0"
   },
   "devDependencies": {
     "prettier-eslint": "^8.8.1"
-  }
+  },
+  "os": ["!darwin"],
+  "preferGlobal": true
 }

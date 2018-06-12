@@ -23,6 +23,12 @@ notion-md-pdf ~/Export-XXXXXX.zip
 # Conversion completed: ~/Document-Name-XXXXXX-1.pdf
 ```
 
+## Supported Operating Systems
+
+Linux 64-bit and Windows 64-bit OS are supported.
+
+Mac OS X is currently unsupported due to implementation of `wkhtmltopdf`. Support to come in a later release.
+
 ## Contributing
 
 Feel free to submit a pull request, be respectful, etc. You know the deal!
