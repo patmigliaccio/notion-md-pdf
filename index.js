@@ -1,8 +1,13 @@
 #!/usr/bin/env node
 
-const markdownpdf = require('markdown-pdf'),
-  path = require('path'),
-  AdmZip = require('adm-zip');
+const path = require('path'),
+  AdmZip = require('adm-zip'),
+  fs = require('fs'),
+  marked = require('marked'),
+  util = require('util'),
+  execFile = util.promisify(require('child_process').execFile);
+
+const TEMP_FILE = './temp.html';
 
 let args = process.argv.slice(2);
 
@@ -31,18 +36,61 @@ zipEntries.forEach(zipEntry => {
 /**
  * Converts a `string` containing Markdown syntax into a PDF.
  *
- * FIXME: CSS code highlighting not applying properly.
- * 	Might be an issue with `markdown-pdf`, explore `pandoc` option.
- *
  * @param {string} md String of Markdown data
  * @param {string} outputPath PDF filePath
  */
-function mdStringtoPDF(md, outputPath) {
-  markdownpdf({
-      highlightCssPath: './assets/css/darcula.css'
-    })
-    .from.string(md)
-    .to(outputPath, () => {
-      console.log(`Conversion completed: ${outputPath}`);
+async function mdStringtoPDF(md, outputPath) {
+  let html = marked(md);
+
+  html = prependCSS(html, './assets/css/github-markdown.css');
+
+  await fs.writeFileSync(TEMP_FILE, html);
+
+  await convertPDF(outputPath);
+
+  fs.unlinkSync(TEMP_FILE);
+
+  console.log(`Conversion completed: ${outputPath}`);
+}
+
+
+/**
+ * Adds CSS to HTML
+ *
+ * @param {string} html
+ * @param {string} cssFilePath
+ * @returns {string}
+ */
+function prependCSS(html, cssFilePath) {
+  let css = '';
+
+  try {
+    css = fs.readFileSync(cssFilePath, {
+      encoding: 'utf-8'
     });
+  } catch (err) {
+    console.log(err);
+  }
+
+  return `
+    <style>${css}</style>
+    <div class="markdown-body">${html}</div>
+  `;
+}
+
+
+/**
+ * Executes OS-specific binary for `wkhtmltopdf` to convert HTML to PDF
+ *
+ * @param {string} outputPath
+ * @returns {Promise<any>}
+ */
+async function convertPDF(outputPath) {
+  if (process.platform === "win32") {
+    return await execFile('./bin/win/wkhtmltopdf.exe', [TEMP_FILE, outputPath]);
+  } else if (process.platform === "darwin") {
+    // FIXME: Mac OSX Unsupported
+  } else {
+    return await execFile('./bin/linux/wkhtmltopdf', [TEMP_FILE, outputPath]);
+  }
 }
