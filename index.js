@@ -26,7 +26,7 @@ zipEntries.forEach(zipEntry => {
   let mdFileName = zipEntry.entryName;
   let pdfFilePath =
     path.join(
-      ...[zipFilePath.slice(0, zipFilePath.lastIndexOf('/')), mdFileName.slice(0, zipFilePath.lastIndexOf('.'))]
+      ...[path.dirname(zipFilePath), mdFileName.slice(0, mdFileName.lastIndexOf('.'))]
     ) + '.pdf';
 
   let data = zipEntry.getData().toString('utf-8');
