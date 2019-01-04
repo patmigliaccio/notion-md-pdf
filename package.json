@@ -18,6 +18,20 @@
   "bugs": {
     "url": "https://github.com/patmigliaccio/notion-md-pdf/issues"
   },
+  "keywords": [
+    "notion",
+    "markdown",
+    "marked",
+    "md",
+    "convert",
+    "parse",
+    "render",
+    "bulk",
+    "markup",
+    "pdf",
+    "zip",
+    "html"
+  ],
   "dependencies": {
     "adm-zip": "^0.4.11",
     "marked": "^0.4.0"
