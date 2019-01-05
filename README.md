@@ -14,7 +14,7 @@ Markdown Files (ZIP) -> marked -> HTML Files -> wkhtmltoPDF -> PDF Files
 
 The methodology used by this tool is simply to take exported Markdown pages from Notion, individually or in bulk, uncompress the downloaded archive and then process each by first parsing into HTML using [`marked`](https://github.com/markedjs/marked) and then converting to PDF using [`wkhtmltopdf`](https://wkhtmltopdf.org/).
 
-**Note:** `wkhtmltopdf` is used instead of other [`PhantomJS`](https://github.com/ariya/phantomjs)-based methods which seem suffer some similar defects ([#10373](https://github.com/ariya/phantomjs/issues/10373), [#10669](https://github.com/ariya/phantomjs/issues/10669), [#13524](https://github.com/ariya/phantomjs/issues/13524)) as the browser, even though both are using the [QtWebKit](https://trac.webkit.org/wiki/QtWebKit) rendering engine.
+**Note:** `wkhtmltopdf` is used instead of other [`PhantomJS`](https://github.com/ariya/phantomjs)-based methods which seem to suffer some similar defects ([#10373](https://github.com/ariya/phantomjs/issues/10373), [#10669](https://github.com/ariya/phantomjs/issues/10669), [#13524](https://github.com/ariya/phantomjs/issues/13524)) as the browser, even though both are using the [QtWebKit](https://trac.webkit.org/wiki/QtWebKit) rendering engine.
 
 ## Installation
 
@@ -43,9 +43,9 @@ notion-md-pdf Export-XXXXXX.zip
 
 ## Supported Operating Systems
 
-Linux (64-bit) and Windows (64-bit) OS are supported.
+Windows (64-bit), Mac OS X (64-bit), and Linux (32-bit) (64-bit) OS are supported.
 
-Mac OS X is currently unsupported due to implementation of `wkhtmltopdf`. Support to come in a later release.
+_Based on the version of `wkhtmltopdf` that is downloaded from a CDN by the post installation script._
 
 ## Contributing
 
