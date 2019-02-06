@@ -9,29 +9,46 @@ const path = require('path'),
 
 const TEMP_FILE = './temp.html';
 
-let args = process.argv.slice(2);
+function main() {
+  const args = process.argv.slice(2);
 
-let filename = args[0];
+  const filename = args[0];
 
-if (filename === undefined || filename === null) {
-  throw new Error('Missing filename parameter.');
+  if (filename === undefined || filename === null) {
+    throw new Error('Missing filename parameter.');
+  }
+
+  const filePath = path.resolve(filename),
+    fileExt = filename.split('.').pop();
+
+  if (fileExt === 'zip') {
+    const zip = new AdmZip(filePath);
+    const zipEntries = zip.getEntries();
+
+    zipEntries.forEach(zipEntry => {
+      const mdFileName = zipEntry.entryName;
+      const pdfFilePath =
+        path.join(
+          ...[path.dirname(filePath), mdFileName.slice(0, mdFileName.lastIndexOf('.'))]
+        ) + '.pdf';
+
+      const data = zipEntry.getData().toString('utf-8');
+      mdStringtoPDF(data, pdfFilePath);
+    });
+
+  } else if (fileExt === 'md') {
+    const pdfFilePath = filePath.slice(0, filePath.lastIndexOf('.')) + '.pdf';
+
+    const data = fs.readFileSync(filePath, 'utf8')
+    mdStringtoPDF(data, pdfFilePath);
+
+  } else {
+    throw new Error(`File extension (.${fileExt}) is not supported.`)
+  }
+
 }
 
-let zipFilePath = path.resolve(filename);
-
-let zip = new AdmZip(zipFilePath);
-let zipEntries = zip.getEntries();
-
-zipEntries.forEach(zipEntry => {
-  let mdFileName = zipEntry.entryName;
-  let pdfFilePath =
-    path.join(
-      ...[path.dirname(zipFilePath), mdFileName.slice(0, mdFileName.lastIndexOf('.'))]
-    ) + '.pdf';
-
-  let data = zipEntry.getData().toString('utf-8');
-  mdStringtoPDF(data, pdfFilePath);
-});
+main();
 
 
 /**

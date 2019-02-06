@@ -9,7 +9,7 @@ Provided by default within the application, Notion's "Export -> Print as PDF" fu
 ### Process
 
 ```text
-Markdown Files (ZIP) -> marked -> HTML Files -> wkhtmltoPDF -> PDF Files
+Markdown Files -> marked -> HTML Files -> wkhtmltoPDF -> PDF Files
 ```
 
 The methodology used by this tool is simply to take exported Markdown pages from Notion, individually or in bulk, uncompress the downloaded archive and then process each by first parsing into HTML using [`marked`](https://github.com/markedjs/marked) and then converting to PDF using [`wkhtmltopdf`](https://wkhtmltopdf.org/).
@@ -34,10 +34,17 @@ npm install notion-md-pdf -g
 
 ## Usage
 
-Call the following shell command with the desired zip archive as the first argument.
+Call the following shell command with the desired zip archive of Markdown files as the first argument.
 
 ```bash
 notion-md-pdf Export-XXXXXX.zip
+# Conversion completed: ~/Document-Name-XXXXXX-1.pdf
+```
+
+### Individual Markdown File Support
+
+```bash
+notion-md-pdf Document-Name-XXXXXX.md
 # Conversion completed: ~/Document-Name-XXXXXX-1.pdf
 ```
 
