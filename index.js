@@ -106,18 +106,11 @@ function prependCSS(html, cssFilePath) {
  * @returns {Promise<any>}
  */
 async function htmlFiletoPDF(htmlFilePath, outputPath) {
-  let osExecPath = '';
+  const defaultDir = 'bin';
+  const bin = 'wkhtmltopdf' + (process.platform === 'win32' ? '.exe' : '');
 
-  if (process.platform === "win32") {
-    osExecPath = 'bin\\win\\wkhtmltopdf.exe'
-  } else if (process.platform === "darwin") {
-    // FIXME: Mac OSX Unsupported
-    throw new Error('Mac OSX is currently unsupported.')
-    return;
-  } else {
-    osExecPath = 'bin/linux/wkhtmltopdf';
-  }
+  const execPath = path.normalize(path.join(__dirname, defaultDir, bin));
+  const output = await execFile(execPath, [path.normalize(htmlFilePath), outputPath])
 
-  let execPath = path.normalize(path.join(__dirname, osExecPath));
-  return await execFile(execPath, [path.normalize(htmlFilePath), outputPath]);
+  return output;
 }
