@@ -1,3 +1,5 @@
+__DEPRECATED__: Following a more [reliable release](https://www.notion.so/Export-as-PDF-95b4340d2d67446ab6f3002261d7c573) of the Export functionality within Notion, this tool is no longer *fully* necessary.
+
 # notion-md-pdf
 
 Converts pages exported from [Notion](https://notion.so) as Markdown into PDF files using the command line due to browser rendering issues.
